@@ -143,6 +143,20 @@ Vue.directive('toggleClass',{
   }
 });
 
+// 添加一个向父元素添加html
+Vue.directive('addHtml',{
+  update: function (el, binding) {
+    el.onclick = function(){
+      var appendElem = binding.value.appendElem;
+      var addTpl = binding.value.addTpl;
+      console.log(binding);
+      var html = document.getElementById(addTpl).innerHTML;
+      document.getElementById(appendElem).innerHTML+= html;
+    }
+  },
+});
+
+
 Vue.directive('cmdemo', {
   // 已经来就绑定
   bind: function (el, binding) {
