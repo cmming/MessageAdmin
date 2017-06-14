@@ -7006,6 +7006,14 @@ label.parsley-error {
     padding-bottom: 0 !important
 }
 
+.no-p-left{
+    padding-left: 0 !important
+}
+
+.no-p-right{
+    padding-right: 0 !important
+}
+
 .p-top-xs {
     padding-top: 5px
 }

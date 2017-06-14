@@ -29,7 +29,8 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-2">联系人</label>
                                 <div :class="{'col-lg-6': true, 'has-error': (errors.has('userTel:required')|errors.has('userTel:regex'))}">
-                                    <input disabled = true  type="text" class="form-control input-sm" placeholder="联系人,可以是手机号/邮箱" name="   formdata.recvid" v-model="formdata.recvid">
+                                    <!--<input disabled = true  type="text" class="form-control input-sm" placeholder="联系人,可以是手机号/邮箱" name="formdata.recvid" v-model="formdata.recvid">-->
+                                    <span style="backgroundColor:#dfdfdf;padding:3px;borderRadius:3px;marginRight:10px;" v-for = '(item,key) in formdata.recvid '>{{item}}<span style= "position:relative;right:0;top:-7px;color:black;cursor:pointer" @click = "delRecvid(key)">×</span></span>
                                     
                                 </div>
                                 <!-- /.col -->
@@ -39,48 +40,53 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">{{inlineRadio}}</label>
                                 <div class="col-lg-10">
-                                    <!--选择联系人种类-->
-                                    <div class="radio inline-block">
-                                        <div class="custom-radio m-right-xs">
-                                            <input type="radio" id="inlineRadio1" value="手机" v-model="inlineRadio" name="inlineRadio" v-validate="'required|in:手机,邮箱'">
-                                            <label for="inlineRadio1"></label>
+                                    <div class="row">
+                                        
+                                        <!--邮箱-->
+                                        <div v-show ="inlineRadio == '邮箱'" :class="{'col-lg-6': true, 'has-error': errors.has('email')}">
+                                            <i class="fa fa-envelope-o icon-absolute-left"></i>
+                                            <!--<i v-show ="inlineRadio == '手机'" class="fa fa-mobile icon-absolute-left"></i>-->
+                                            <input autocomplete="false" type="nonvoid" class="form-control input-sm" placeholder="非空的 email" name="email" v-model="email" v-validate="'required|email'">
+                                            <!--错误提示信息-->
+                                            <v-errorMsg 
+                                            :errorMsgAlert="{'isShow':errors.has('email'),'msg':[{'isShow':errors.has('email:required'),'msg':errors.first('email:required')},{'isShow':errors.has('email:email'),'msg':errors.first('email:email')}]}">
+                                            </v-errorMsg>
                                         </div>
-                                        <div class="inline-block vertical-top">手机</div>
-                                    </div>
-                                    <div class="radio inline-block">
-                                        <div class="custom-radio m-right-xs">
-                                            <input type="radio" id="inlineRadio2" name="inlineRadio" value="邮箱" v-model="inlineRadio">
-                                            <label for="inlineRadio2"></label>
+                                        <!--手机-->
+                                        <div v-show ="inlineRadio == '手机'" :class="{'col-lg-6': true, 'has-error': errors.has('email')}">
+                                            <i class="fa fa-mobile icon-absolute-left"></i>
+                                            <input v-validate="'required|regex:^[1][358][0-9]{9}$'" type="text" class="form-control input-sm" placeholder="手机号" name="userTel" v-model="userTel">
+                                        
+                                            <v-errorMsg 
+                                            :errorMsgAlert="{'isShow':errors.has('userTel'),'msg':[{'isShow':errors.has('userTel:required'),'msg':errors.first('userTel:required')},{'isShow':errors.has('userTel:regex'),'msg':errors.first('userTel:regex')}]}">
+                                            </v-errorMsg>
                                         </div>
-                                        <div class="inline-block vertical-top">邮箱</div>
-                                    </div>
+                                        <!--选择联系人种类-->
+                                        <div class="col-lg-6">
+                                            <div class="radio inline-block">
+                                                <div class="custom-radio m-right-xs">
+                                                    <input type="radio" id="inlineRadio1" value="手机" v-model="inlineRadio" name="inlineRadio" v-validate="'required|in:手机,邮箱'">
+                                                    <label for="inlineRadio1"></label>
+                                                </div>
+                                                <div class="inline-block vertical-top">手机</div>
+                                            </div>
+                                            <div class="radio inline-block">
+                                                <div class="custom-radio m-right-xs">
+                                                    <input type="radio" id="inlineRadio2" name="inlineRadio" value="邮箱" v-model="inlineRadio">
+                                                    <label for="inlineRadio2"></label>
+                                                </div>
+                                                <div class="inline-block vertical-top">邮箱</div>
+                                            </div>
 
-                                    <button v-show="inlineRadio == '手机'&&!errors.has('userTel')" type="button" class="btn btn-sm btn-info" @click = "addContact">添加手机</button>
-                                    <button v-show="inlineRadio == '邮箱'&&!errors.has('email')" type="button" class="btn btn-sm btn-info" @click = "addContact">添加邮箱</button>
-                                    
-                                    <v-errorMsg 
-                                    :errorMsgAlert="{'isShow':errors.has('inlineRadio'),'msg':[{'isShow':errors.has('inlineRadio'),'msg':errors.first('inlineRadio:required')}]}">
-                                    </v-errorMsg>
-                                    <!--邮箱-->
-                                    <div v-show ="inlineRadio == '邮箱'" :class="{'col-lg-6': true, 'has-error': errors.has('email') }">
-                                        <i class="fa fa-envelope-o icon-absolute-left"></i>
-                                        <!--<i v-show ="inlineRadio == '手机'" class="fa fa-mobile icon-absolute-left"></i>-->
-                                        <input autocomplete="false" type="nonvoid" class="form-control input-sm" placeholder="非空的 email" name="email" v-model="email" v-validate="'required|email'">
-                                        <!--错误提示信息-->
-                                        <v-errorMsg 
-                                        :errorMsgAlert="{'isShow':errors.has('email'),'msg':[{'isShow':errors.has('email:required'),'msg':errors.first('email:required')},{'isShow':errors.has('email:email'),'msg':errors.first('email:email')}]}">
-                                        </v-errorMsg>
-                                    </div>
-                                    <!--手机-->
-                                    <div v-show ="inlineRadio == '手机'" :class="{'col-lg-6': true, 'has-error': errors.has('email') }">
-                                        <i class="fa fa-mobile icon-absolute-left"></i>
-                                        <input v-validate="'required|regex:^[1][358][0-9]{9}$'" type="text" class="form-control input-sm" placeholder="手机号" name="userTel" v-model="userTel">
-                                    
-                                        <v-errorMsg 
-                                        :errorMsgAlert="{'isShow':errors.has('userTel'),'msg':[{'isShow':errors.has('userTel:required'),'msg':errors.first('userTel:required')},{'isShow':errors.has('userTel:regex'),'msg':errors.first('userTel:regex')}]}">
-                                        </v-errorMsg>
-                                    </div>
-                               </div> 
+                                            <button v-show="inlineRadio == '手机'&&!errors.has('userTel')" type="button" class="btn btn-sm btn-info" @click = "addContact">添加手机</button>
+                                            <button v-show="inlineRadio == '邮箱'&&!errors.has('email')" type="button" class="btn btn-sm btn-info" @click = "addContact">添加邮箱</button>
+                                            
+                                            <v-errorMsg 
+                                            :errorMsgAlert="{'isShow':errors.has('inlineRadio'),'msg':[{'isShow':errors.has('inlineRadio'),'msg':errors.first('inlineRadio:required')}]}">
+                                            </v-errorMsg>
+                                        </div>
+                                </div> 
+                               </div>
                                 <!-- /.col -->
                             </div>      
                             <div class="form-group">
@@ -142,8 +148,7 @@
                 url: '',
 
                 formdata:{
-                    "recvid":"",
-                    
+                    "recvid":[], 
                 },
             }
         },
@@ -165,11 +170,20 @@
             //添加联系人
             addContact(){
                 if(this.inlineRadio == "手机"){
-                    this.formdata.recvid += (this.userTel+"|");
+                    this.formdata.recvid.push(this.userTel);
                 }else if(this.inlineRadio=="邮箱"){
-                    this.formdata.recvid += (this.email+"|");
+                    this.formdata.recvid.push(this.email);
                 }
+                // if(this.inlineRadio == "手机"){
+                //     this.formdata.recvid += (this.userTel+"|");
+                // }else if(this.inlineRadio=="邮箱"){
+                //     this.formdata.recvid += (this.email+"|");
+                // }
             },
+            //删除联系人
+            delRecvid(key){
+                this.formdata.recvid.splice(key,1)
+            }
         },
     }
 
