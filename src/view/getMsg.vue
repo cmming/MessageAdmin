@@ -188,7 +188,7 @@
                         self.allPage=0;
                         self.$message({
                             type:"warning",
-                            message:response.data.msg
+                            message:response.data.message
                         });
                     }
                 });
@@ -214,7 +214,7 @@
             },
             edit(index) {
                 if (index) {
-                    this.$router.push('/tableDetail/' + index);
+                    this.$router.push('/updateMsg/' + index);
                 }
             }
         }

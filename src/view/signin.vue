@@ -82,15 +82,13 @@
 					allAjax.userData.login.call(this, resData, function (response) {
 						if (response.data.code === "200") {
 							self.loadding = false;
-							sessionStorage.accessToken = true;
-							sessionStorage.token = response.data.data.token;
-							sessionStorage.userName = self.formData.ad_uname;
-							// 在vue层面改变数据状态 既然参数传不过去，就直接改变他
-							// self.updataData={"userName":sessionStorage.userName};
-							self.$store.dispatch('UPDATEUSERINFO',{"userName":sessionStorage.userName});
+							localStorage.accessToken = true;
+							//将token 存在session 里面，后面的每一次都要在请求头中添加
+							localStorage.token = response.data.data.token;
+							localStorage.refresh_expired_at = response.data.data.refresh_expired_at;
+							localStorage.userName = self.formData.ad_uname;
+							self.$store.dispatch('UPDATEUSERINFO',{"userName":localStorage.userName});
 							self.$store.dispatch('UPDATEUSERINFO');
-							// 直接改变他 这样修改并不会修改 vuex 内部的值 只是在内部被改变了 其它地方没有生效
-							// self.$store.state.userInfo.userName=response.data.data.user_uname;
 							self.$router.push('main');
 						}
 						else {

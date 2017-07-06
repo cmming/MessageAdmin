@@ -88,18 +88,32 @@
                                 </div> 
                                </div>
                                 <!-- /.col -->
-                            </div>      
+                            </div>   
+
                             <div class="form-group">
-                                <label class="control-label col-lg-2">限制长度</label>
-                                <div :class="{'col-lg-6': true, 'has-error': (errors.has('rangeLength:required')|errors.has('rangeLength:min')|errors.has('rangeLength:max'))}">
-                                    <input name="rangeLength" v-validate="'required|min:5|max:10'" v-model="rangeLength" type="text" class="form-control input-sm" placeholder="长度 = [5,10]">
+                                <label class="control-label col-lg-2">消息标题：</label>
+                                <div :class="{'col-lg-6': true, 'has-error': (errors.has('title:required'))}">
+                                    <input v-validate="'required'" type="text" class="form-control input-sm" placeholder="消息标题" name="title" v-model="formdata.title">
                                     
                                     <v-errorMsg 
-                                    :errorMsgAlert="{'isShow':errors.has('rangeLength'),'msg':[{'isShow':errors.has('rangeLength:min'),'msg':errors.first('rangeLength:min')},{'isShow':errors.has('rangeLength:max'),'msg':errors.first('rangeLength:max')},{'isShow':errors.has('rangeLength:required'),'msg':errors.first('rangeLength:required')}]}">
+                                    :errorMsgAlert="{'isShow':errors.has('title'),'msg':[{'isShow':errors.has('title:required'),'msg':errors.first('title:required')}]}">
                                     </v-errorMsg>
                                 </div>
                                 <!-- /.col -->
-                            </div>
+                            </div> 
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">消息内容：</label>
+                                <div :class="{'col-lg-6': true, 'has-error': (errors.has('content:required'))}">
+                                    <input v-validate="'required'" type="text" class="form-control input-sm" placeholder="联系人名称" name="content" v-model="formdata.content">
+                                    
+                                    <v-errorMsg 
+                                    :errorMsgAlert="{'isShow':errors.has('content'),'msg':[{'isShow':errors.has('content:required'),'msg':errors.first('content:required')}]}">
+                                    </v-errorMsg>
+                                </div>
+                                <!-- /.col -->
+                            </div>   
+
 
                             <!-- /form-group -->
                             <div class="form-group">
@@ -122,6 +136,7 @@
 <script>
     import breadcrumb from '../components/common/breadcrumb.vue'
     import errorMsg from '../components/common/formError.vue'
+    import allAjax from '../api/request.js'
     export default {
         data() {
             return {
@@ -130,25 +145,19 @@
                     { path: 'main', name: '主页' },
                     { path: 'formElement', name: 'formElement构建' },
                 ],
-                Password: "",
-                checkPassword: "",
+                //isUpdate 
+                isUpdate:0,
                 // validate 定义
                 email: '',
                 inlineRadio: '手机',
-                inlineCheckbox:[],
                 userTel:"",
-                rangeLength:"",
-                minVal:"",
-                rangeNum:"",
-                maxVal:"",
-                userPwd:"",
-                confirmPwd:"",
-                name: '',
-                phone: '',
-                url: '',
-
+                
                 formdata:{
+                    "upd_flag":"",
+                    "update_id":"",
                     "recvid":[], 
+                    "title":"",
+                    "content":""
                 },
             }
         },
@@ -156,13 +165,62 @@
             'v-breadcrumb': breadcrumb,
             'v-errorMsg': errorMsg
         },
+        //addTerm.vue
+        created(){
+            console.log(this.$route.params.id);
+            var update_id = this.$route.params.id;
+            this.formdata.update_id = update_id;
+            if(update_id!==''&&update_id!=0){
+                //查询该id的消息内容
+                var self = this;
+                var resData = { 'type': "getMsgById", 'dataform': JSON.stringify({'update_id':update_id})};
+                allAjax.msg.getMsg.call(this, resData, function (response) {
+                    if (response.data.code === "200") {
+                        self.isUpdate = 1;
+                        self.formdata.recvid = response.data.data.recvid.split('|');
+                        self.formdata.content = response.data.data.content;
+                        self.formdata.title = response.data.data.title;
+                    }else{
+                        self.$message({
+                            type:"warning",
+                            message:response.data.message
+                        });
+                    }
+                });
+
+            }else if(update_id===0){
+                this.isUpdate = 0;
+            }
+        },
         methods: {
             //验证
             validateBeforeSubmit() {
-                this.$validator.validateAll().then(() => {
+                this.$validator.attach('required', 'required');
+                this.$validator.validateAll({'required':this.formdata.recvid,'required':this.formdata.title,'required':this.formdata.content}).then(() => {
                     // eslint-disable-next-line
-                    alert('ok');
+                    //验证通过 开始发送请求
+                    var self = this, recvid = this.formdata.recvid.join("|");
+                    if(this.isUpdate){
+                        //修改
+                        var resData = { 'type': "updateMsg", 'dataform': JSON.stringify({"upd_flag":"1","update_id":this.formdata.update_id,"recvid":recvid,"title":this.formdata.title,"content":this.formdata.content})};
+                    }else{
+                        //添加
+                        var resData = { 'type': "updateMsg", 'dataform': JSON.stringify({"upd_flag":"0","sid":"1","recvid":recvid,"title":this.formdata.title,"content":this.formdata.content})};
+                    }
+                    allAjax.msg.updateMsg.call(this, resData, function (response) {
+                        if (response.data.code === "200") {
+                            self.dataList = response.data.data.cp_data;
+                            self.allPage = response.data.data.page_sum;
+                        }else{
+                            self.allPage=0;
+                            self.$message({
+                                type:"warning",
+                                message:response.data.message
+                            });
+                        }
+                    });
                 }).catch(() => {
+                    console.log(this.$validator);
                     // eslint-disable-next-line
                     alert('未通过');
                 });
@@ -174,11 +232,6 @@
                 }else if(this.inlineRadio=="邮箱"){
                     this.formdata.recvid.push(this.email);
                 }
-                // if(this.inlineRadio == "手机"){
-                //     this.formdata.recvid += (this.userTel+"|");
-                // }else if(this.inlineRadio=="邮箱"){
-                //     this.formdata.recvid += (this.email+"|");
-                // }
             },
             //删除联系人
             delRecvid(key){

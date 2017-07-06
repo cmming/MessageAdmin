@@ -256,7 +256,7 @@
         ]),
         mounted(){
             // console.log(this.$store.state);
-            this.userInfo.userName=sessionStorage.userName;
+            this.userInfo.userName=localStorage.userName;
         },
         methods: {
             showMenu: function() {
@@ -270,10 +270,11 @@
 				var self=this;
                 allAjax.userData.signout.call(this,resData,function(response){
                     if (response.data.code === "200") {
-                        sessionStorage.accessToken = '';
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('refresh_expired_at');
 						self.loadding=false;
                         self.$router.push('login');
-						// sessionStorage.accessToken = true;
+						// localStorage.accessToken = true;
 						// self.$router.push('main');
 					}
 					else{

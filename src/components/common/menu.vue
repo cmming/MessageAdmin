@@ -48,23 +48,33 @@
                 childMenuShow: false,
                 // 菜单文件必要的配置 from 后台传来的目录数据
                 menuData: [{
-                    title:"消息",
+                    title: "消息",
                     iconFont: "fa-comment-o",
                     childMenu: [{
                         title: "消息列表",
                         path: "/getMsg"
-                    },{
+                    }, {
                         title: "消息表单",
-                        path: "/updateMsg"
+                        path: "/updateMsg/0"
                     }]
-                },{
-                    title:"联系人",
+                }, {
+                    title: "联系人",
                     iconFont: "fa-user",
                     childMenu: [{
                         title: "联系人列表",
                         path: "/getContacts"
-                    },{
+                    }, {
                         title: "添加联系人",
+                        path: "/updateContact"
+                    },]
+                }, {
+                    title: "文件",
+                    iconFont: "fa fa-file",
+                    childMenu: [{
+                        title: "上传文件",
+                        path: "/addFile"
+                    }, {
+                        title: "文件列表",
                         path: "/updateContact"
                     },]
                 }],

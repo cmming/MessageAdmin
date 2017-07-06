@@ -35,18 +35,23 @@ const allAjax = {
             this.$http.post('',data).then(fn);
         },
         /**
+         * 更具id 获取一条数据
+         * 
+         * @param {any} data 
+         * @param {any} fn 
+         */
+        getContactById(data,fn){
+            this.$http.post('',data).then(fn);
+        },
+        /**
          * 添加或修改消息
          * @param {any} data   
          * 修改
          * {"upd_flag":"1","update_id":"1","recvid":"13037125104","title":"msg add title","content":"msg content add","attach":"change"}
          * @param {any} fn    成功请求的回调
          */
-        updateMsg(data, fn) {
-            this.$http.post('/dataTable.php', {
-                del_id: index,
-                type: 'tableDate',
-                act: 'del'
-            }).then(fn)
+        updateMsg(data,fn){
+            this.$http.post('',data).then(fn);
         },
     },
     Contact:{

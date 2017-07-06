@@ -73,8 +73,7 @@ Vue.component('v-model', model)
 
 // import  './element-ui.js'
 
-import modal from './plugins/modal.js'
-Vue.use(modal)
+
 import '../node_modules/element-ui/lib/theme-default/index.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/animate.min.css'

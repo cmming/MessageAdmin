@@ -83,19 +83,19 @@ const router = new Router({
 
 // 路由登录验证
 router.beforeEach(({ meta, path }, from, next) => {
-    // 依据sessionStorage是否存在来判断用户是否登录
+    // 依据localStorage是否存在来判断用户是否登录
     var { auth = true } = meta;
-    var isLogin = Boolean(sessionStorage.getItem('accessToken'));
+    var isLogin = Boolean(localStorage.getItem('accessToken'));
     if (auth && !isLogin && path !== '/login') {
         return next({ path: '/login' })
-            // 只要跳到登录页面就自动清除sessionStorage
+            // 只要跳到登录页面就自动清除localStorage
     } else if (path === '/login') {
-        sessionStorage.accessToken = "";
+        localStorage.accessToken = "";
     }
     next()
 });
 // router.afterEach( route => {
-//     // 依据sessionStorage是否存在来判断用户是否登录
+//     // 依据localStorage是否存在来判断用户是否登录
 //     console.log(route);
 //     setTitle('修改title');
 //     // if(to.title){
