@@ -41,7 +41,7 @@
 
 				<div class="m-top-md p-top-sm col-lg-12">
 					<div class="font-12 text-center m-bottom-xs" v-show="false">
-						<a href="#" class="font-12">忘记密码</a>
+						<a href="javascript:void(0)" class="font-12">忘记密码</a>
 					</div>
 					<div class="font-12 text-center m-bottom-xs" v-show="false">没有帐号</div>
 					<a href="#/signup" class="btn btn-default block">创建帐号</a>
@@ -82,7 +82,6 @@
 					allAjax.userData.login.call(this, resData, function (response) {
 						if (response.data.code === "200") {
 							self.loadding = false;
-							localStorage.accessToken = true;
 							//将token 存在session 里面，后面的每一次都要在请求头中添加
 							localStorage.token = response.data.data.token;
 							localStorage.refresh_expired_at = response.data.data.refresh_expired_at;

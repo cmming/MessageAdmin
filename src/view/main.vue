@@ -1,52 +1,30 @@
 <template>
-
     <div>
         <div>
             主页
-            <button type="button" class="btn btn btn-danger" @click = "testDispatch">testDispatch</button>
+            <input type="text" v-model = 'vue_test_params'>
+            <button type="button" class="btn btn btn-danger" @click = "UPDATEUSERINFO(vue_test_params)">testDispatch</button>
             {{userInfo}}
         </div>
     </div>
 </template>
 <script>
-    import { mapGetters } from 'vuex'
-    export default{
-        data(){
-            return {
-                data:''
-            }
+  import {mapGetters, mapActions} from 'vuex'
+
+  export default{
+      data(){
+          return {
+              vue_test_params:'',
+          }
+      },
+    //   获取数据 相当于将data放在 vuex中去初始化
+    computed:mapGetters([
+      'userInfo'
+    ]),
+    methods:{
+            ...mapActions([
+            'UPDATEUSERINFO'
+            ])
         },
-        computed:{
-            ...mapGetters(["userInfo"]),
-        },
-        created(){
-            //外部 view 层调用 vux （数据层）
-            // 调用state
-            console.log(this.$store.state.table.tableData[0].birthday);
-            //提交 请求动作，
-            this.$store.dispatch('UPDATEUSERINFO','mainuser');
-        },
-        methods:{
-            testDispatch(){
-                this.$store.dispatch('UPDATEUSERINFO','mainuser');
-                var data = this.$store.getters.userInfo;
-            console.log(data);
-            },
-        },
-        updated(){
-            var data = this.$store.getters('userInfon');
-            cosole.log(data);
-            // this.data = this.$store
-        },
-        // computed:mapGetters([
-        // 'count',
-        // 'getOdd'
-        // ]),
-        // methods:mapActions([
-        // 'increment',
-        // 'decrement',
-        // 'clickOdd',
-        // 'clickAsync'
-        // ])
-    }
+  }
 </script>

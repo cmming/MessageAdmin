@@ -78,7 +78,8 @@ import '../node_modules/element-ui/lib/theme-default/index.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/animate.min.css'
 import './assets/css/simplify.min.css'
-import './assets/css/font-awesome.min.css'
+// import './assets/css/font-awesome.min.css'
+import 'font-awesome/css/font-awesome.min.css'
 import './assets/css/cm.css'
 
 

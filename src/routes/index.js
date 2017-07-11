@@ -81,7 +81,7 @@ router.beforeEach(({ meta, path }, from, next) => {
         //每次跳转之前 应该根据 缓存 进行 自动登录
         if(localStorage.getItem('token')){
             //发送 请求验证，如果 token 正确的话，就直接进行跳转到主页，而非登陆的页面
-            axios.post('/api',{ 'type': "checkToken", 'dataform': JSON.stringify({})},{headers: {'x-access-token': localStorage.getItem("token")}}).then(function(data){
+            axios.post(process.env.API_ROOT,{ 'type': "checkToken", 'dataform': JSON.stringify({})},{headers: {'x-access-token': localStorage.getItem("token")}}).then(function(data){
                 if(data.data.code = 200){
                     return next({ path: '/main' })
                 }else{

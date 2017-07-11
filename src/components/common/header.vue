@@ -31,20 +31,20 @@
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="javascript:void(0)">
                                     Notification
                                     <span class="badge badge-purple bounceIn animation-delay3 pull-right">2</span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="sidebarRight-toggle">
+                                    <a href="javascript:void(0)" class="sidebarRight-toggle">
                                     消息
                                     <span class="badge badge-success bounceIn animation-delay4 pull-right">7</span>
                                 </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#">Setting</a>
+                                    <a href="javascript:void(0)">Setting</a>
                                 </li>
                             </ul>
                         </li>
@@ -68,7 +68,7 @@
                             <div class="search-input-wrapper">
                                 <div class="search-input">
                                     <input type="text" class="form-control input-sm inline-block">
-                                    <a href="#" class="input-icon text-normal"><i class="ion-ios7-search-strong"></i></a>
+                                    <a href="javascript:void(0)" class="input-icon text-normal"><i class="ion-ios7-search-strong"></i></a>
                                 </div>
                             </div>
                         </li>
@@ -76,18 +76,18 @@
                     <!--最右边的一列用户信息-->
                     <div class="pull-right m-right-sm">
                         <!--带用户头像的下拉-->
-                        <div class="user-block hidden-xs">
-                            <a href="#" id="userToggle" data-toggle="dropdown">
+                        <div class="user-block hidden-xs" :class = "{'open':showRigthPc}">
+                            <a href="javascript:void(0)" id="userToggle" data-toggle="dropdown">
                                 <img src="" alt="" class="img-circle inline-block user-profile-pic">
-                                <div class="user-detail inline-block">
-                                    {{userInfo.userName}}
+                                <div class="user-detail inline-block" @click="showRigthPc = !showRigthPc">
+                                    {{userInfo.userName}}123PC
                                     <i class="fa fa-angle-down"></i>
                                 </div>
                             </a>
                             <div class="panel border dropdown-menu user-panel">
                                 <div class="panel-body paddingTB-sm">
                                     <ul>
-                                        <li>
+                                        <!--<li>
                                             <a href="profile.html">
                                                 <i class="fa fa-edit fa-lg"></i><span class="m-left-xs">My Profile</span>
                                             </a>
@@ -97,7 +97,7 @@
                                                 <i class="fa fa-inbox fa-lg"></i><span class="m-left-xs">Inboxes</span>
                                                 <span class="badge badge-danger bounceIn animation-delay3">2</span>
                                             </a>
-                                        </li>
+                                        </li>-->
                                         <li>
                                             <a @click="siginOut">
                                                 <i class="fa fa-power-off fa-lg"></i><span class="m-left-xs">登出</span>
@@ -107,128 +107,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--右边的消息，提醒按钮-->
-                        <ul class="nav-notification">
-                            <li>
-                                <a href="#" data-toggle="dropdown"><i class="fa fa-envelope fa-lg"></i></a>
-                                <span class="badge badge-purple bounceIn animation-delay5 active">2</span>
-                                <ul class="dropdown-menu message pull-right">
-                                    <li><a>You have 4 new unread messages</a></li>
-                                    <li>
-                                        <a class="clearfix" href="#">
-                                            <img src="" alt="User Avatar">
-                                            <div class="detail">
-                                                <strong>John Doe</strong>
-                                                <p class="no-margin">
-                                                    Lorem ipsum dolor sit amet...
-                                                </p>
-                                                <small class="text-muted"><i class="fa fa-check text-success"></i> 27m ago
-                                            </small>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="clearfix" href="#">
-                                            <img src="" alt="User Avatar">
-                                            <div class="detail">
-                                                <strong>{{userInfo.userName}}</strong>
-                                                <p class="no-margin">
-                                                    Lorem ipsum dolor sit amet...
-                                                </p>
-                                                <small class="text-muted"><i class="fa fa-check text-success"></i> 5hr ago
-                                            </small>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="clearfix" href="#">
-                                            <img src="" alt="User Avatar">
-                                            <div class="detail m-left-sm">
-                                                <strong>Bill Doe</strong>
-                                                <p class="no-margin">
-                                                    Lorem ipsum dolor sit amet...
-                                                </p>
-                                                <small class="text-muted"><i class="fa fa-reply"></i> Yesterday</small>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="clearfix" href="#">
-                                            <img src="" alt="User Avatar">
-                                            <div class="detail">
-                                                <strong>Baby Doe</strong>
-                                                <p class="no-margin">
-                                                    Lorem ipsum dolor sit amet...
-                                                </p>
-                                                <small class="text-muted"><i class="fa fa-reply"></i> 9 Feb 2013</small>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li><a href="#">View all messages</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#" data-toggle="dropdown"><i class="fa fa-bell fa-lg"></i></a>
-                                <span class="badge badge-info bounceIn animation-delay6 active">4</span>
-                                <ul class="dropdown-menu notification dropdown-3 pull-right">
-                                    <li><a href="#">You have 5 new notifications</a></li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-icon bg-warning">
-													<i class="fa fa-warning"></i>
-												</span>
-                                            <span class="m-left-xs">Server #2 not responding.</span>
-                                            <span class="time text-muted">Just now</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-icon bg-success">
-													<i class="fa fa-plus"></i>
-												</span>
-                                            <span class="m-left-xs">New user registration.</span>
-                                            <span class="time text-muted">2m ago</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-icon bg-danger">
-													<i class="fa fa-bolt"></i>
-												</span>
-                                            <span class="m-left-xs">Application error.</span>
-                                            <span class="time text-muted">5m ago</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-icon bg-success">
-													<i class="fa fa-usd"></i>
-												</span>
-                                            <span class="m-left-xs">2 items sold.</span>
-                                            <span class="time text-muted">1hr ago</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-icon bg-success">
-													<i class="fa fa-plus"></i>
-												</span>
-                                            <span class="m-left-xs">New user registration.</span>
-                                            <span class="time text-muted">1hr ago</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="#">View all notifications</a></li>
-                                </ul>
-                            </li>
-                            <li class="chat-notification">
-                                <a href="#" class="sidebarRight-toggle"><i class="fa fa-comments fa-lg"></i></a>
-                                <span class="badge badge-danger bounceIn">1</span>
-
-                                <div class="chat-alert">
-                                    Hello, Are you there?
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -237,16 +115,14 @@
 </template>
 <script>
     import allAjax from '../../api/request.js'
-    import {mapGetters} from 'vuex'
+    import {mapGetters,mapActions} from 'vuex'
     export default {
         data() {
             return {
                 b: "",
                 // 手机时候右边的下拉
                 showRigthPhone: false,
-                // userInfo:{
-                //     userName:""
-                // }
+                showRigthPc:false
             }
         },
         props: ['msg'],
@@ -256,7 +132,7 @@
         ]),
         mounted(){
             // console.log(this.$store.state);
-            this.userInfo.userName=localStorage.userName;
+            // this.userInfo.userName=localStorage.userName;
         },
         methods: {
             showMenu: function() {
@@ -265,29 +141,9 @@
             },
             // 退出登录
             siginOut:function(){
-                var resData = {'type':"loginout",'formdata':'测试'};
-				this.loadding = true;
-				var self=this;
-                allAjax.userData.signout.call(this,resData,function(response){
-                    if (response.data.code === "200") {
-                        localStorage.removeItem('token');
-                        localStorage.removeItem('refresh_expired_at');
-						self.loadding=false;
-                        self.$router.push('login');
-						// localStorage.accessToken = true;
-						// self.$router.push('main');
-					}
-					else{
-						self.requestError=true;
-						self.errorMsg=response.data.msg;
-						self.loadding=false;
-					}
-                });
+                this.$store.dispatch('CLEARUSERINFO');
+                this.$router.push('./login');
             }
-            // showRigth 手机时候的下拉
-            // showRigth() {
-            //     this.showRigthPhone = !this.showRigthPhone;
-            // }
         }
     }
 </script>

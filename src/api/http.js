@@ -56,7 +56,7 @@ instance.interceptors.response.use(function (response) {
       console.log(1,last_modified,localStorage.refresh_expired_at);
     if(last_modified>localStorage.refresh_expired_at){
       //根据响应 中的时间，判断是否更新token
-      axios.post('/api',{ 'type': "updateToken", 'dataform': JSON.stringify({})},{headers: {'x-access-token': localStorage.getItem("token")}}).then(function(data){
+      axios.post(process.env.API_ROOT,{ 'type': "updateToken", 'dataform': JSON.stringify({})},{headers: {'x-access-token': localStorage.getItem("token")}}).then(function(data){
         if(data.data.code == '3006'){
           var now = 3,timer = null;
           var showAlert = Notification.error({
