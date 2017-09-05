@@ -80,7 +80,8 @@
                             <a href="javascript:void(0)" id="userToggle" data-toggle="dropdown">
                                 <img src="" alt="" class="img-circle inline-block user-profile-pic">
                                 <div class="user-detail inline-block" @click="showRigthPc = !showRigthPc">
-                                    {{userInfo.userName}}123PC
+                                    {{userInfo.userName}}
+                                    123PC
                                     <i class="fa fa-angle-down"></i>
                                 </div>
                             </a>
@@ -122,17 +123,20 @@
                 b: "",
                 // 手机时候右边的下拉
                 showRigthPhone: false,
-                showRigthPc:false
+                showRigthPc:false,
+                userInfo:{
+                    userName:''
+                },
             }
         },
         props: ['msg'],
         computed: mapGetters([
             'loading',
-            'userInfo'
+            // 'userInfo'
         ]),
         mounted(){
             // console.log(this.$store.state);
-            // this.userInfo.userName=localStorage.userName;
+            this.userInfo.userName=localStorage.userName;
         },
         methods: {
             showMenu: function() {
@@ -141,7 +145,10 @@
             },
             // 退出登录
             siginOut:function(){
-                this.$store.dispatch('CLEARUSERINFO');
+                localStorage.removeItem('token');
+                localStorage.removeItem('refresh_expired_at');
+                localStorage.removeItem('userName');
+                // this.$store.dispatch('CLEARUSERINFO');
                 this.$router.push('./login');
             }
         }

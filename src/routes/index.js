@@ -17,7 +17,7 @@ const routes = [
             {
             path: '/main',
             meta: { auth: true, title: "消息列表", },
-            component: resolve => require(['../view/main.vue'], resolve)
+            component: resolve => require(['../view/getMsg.vue'], resolve)
         },
         //实战
 

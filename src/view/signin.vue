@@ -86,8 +86,8 @@
 							localStorage.token = response.data.data.token;
 							localStorage.refresh_expired_at = response.data.data.refresh_expired_at;
 							localStorage.userName = self.formData.ad_uname;
-							self.$store.dispatch('UPDATEUSERINFO',{"userName":localStorage.userName});
-							self.$store.dispatch('UPDATEUSERINFO');
+							// self.$store.dispatch('UPDATEUSERINFO',{"userName":localStorage.userName});
+							// self.$store.dispatch('UPDATEUSERINFO');
 							self.$router.push('main');
 						}
 						else {

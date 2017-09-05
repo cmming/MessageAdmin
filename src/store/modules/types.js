@@ -12,3 +12,5 @@ export const HIDELOADING = 'HIDELOADING';
 // 用户信息
 // 更新用户信息
 export const UPDATEUSERINFO = 'UPDATEUSERINFO';
+export const GETUSERINFO = 'GETUSERINFO';
+export const CLEARUSERINFO = 'CLEARUSERINFO';

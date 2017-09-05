@@ -10,7 +10,7 @@ Vue.use(Vuex);
 import mutations from './modules/mutations'
 import table from './modules/table'
 import loading from './modules/loading.js'
-import userInfo from './modules/userInfo.js'
+// import userInfo from './modules/userInfo.js'
 
 // 导出多个模块的数据 ->应该仅仅包含
 export default new Vuex.Store({
@@ -20,7 +20,7 @@ export default new Vuex.Store({
         mutations,
         table,
         loading,
-        userInfo
+        // userInfo
     },
 
 });

@@ -7,6 +7,11 @@ import * as types from './types'
 const state = {
     userInfo: {userName:""}
 };
+const getters = {
+    userInfo: (state) => {
+        return state.userInfo;
+    }
+};
 // 4.action 的具体操作
 const mutations = {
     [types.UPDATEUSERINFO](state,data) {
@@ -26,5 +31,6 @@ const mutations = {
 
 export default {
     state,
+    getters,
     mutations
 }
