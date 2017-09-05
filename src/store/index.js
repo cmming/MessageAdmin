@@ -4,8 +4,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
-import * as getters from './getters'
-import * as actions from './actions.js'
+// import * as getters from './getters'
+// import * as actions from './actions.js'
 
 import mutations from './modules/mutations'
 import table from './modules/table'
@@ -14,8 +14,8 @@ import userInfo from './modules/userInfo.js'
 
 // 导出多个模块的数据 ->应该仅仅包含
 export default new Vuex.Store({
-    getters,
-    actions,
+    // getters,
+    // actions,
     modules: {
         mutations,
         table,
